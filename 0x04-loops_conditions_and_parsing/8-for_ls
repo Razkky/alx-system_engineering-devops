@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #This scripts displays all the content of current directory
 
-content_directory=$("ls")
+content_directory=`ls`
 for i in $content_directory
 do
 	echo $i | cut -d'-' -f2
-done	
+done
