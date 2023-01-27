@@ -5,5 +5,5 @@ content_directory=`ls`
 
 for i in $content_directory 
 do
-	echo $i | cut -d'-' -f2
+	echo "$i" | cut -d'-' -f2
 done
