@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-#Create a ssh key with the private key school and paraphase betty
+#Create a ssh key with the private key school
+#and paraphase betty
 ssh-keygen -t rsa -b 4096 -P betty -f school
