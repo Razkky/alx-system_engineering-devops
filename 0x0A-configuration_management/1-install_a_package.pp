@@ -2,6 +2,6 @@
 
 package { 'flask':
   ensure   => '2.1.0',
-  command  => 'pip3 install flask flask_restful apiai',
+  command  => 'pip3 install flask',
   provider => 'gem',
 }
