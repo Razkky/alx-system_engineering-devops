@@ -6,10 +6,10 @@ apt-get -y install nginx
 ufw allow 'Nginx HTTP'
 
 #Change default home page file
-echo "Hello World!\n" >> /var/www/html/index.html
+printf "Hello World!\n" >> /var/www/html/index.html
 
 #Change ownership of file from root to user
-sudo chown -R $USER:$USER /var/www/html
+sudo chown -R "$USER:$USER" /var/www/html
 sudo chown -R 755 /var/www
 
 #Redirect redirect_me page
