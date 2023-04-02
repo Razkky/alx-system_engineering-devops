@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#Configure nginx server to redirect redirect_me page to another page
+apt-get -y install nginx
+
+#FireWall settings: Allow Nginx to serve on HTTP
+ufw allow 'Nginx HTTP'
+
+#Change default home page file
+echo "Hello World!\n" >> /var/www/html/index.html
+
+#Change ownership of file from root to user
+sudo chown -R $USER:$USER /var/www/html
+sudo chown -R 755 /var/www
+
+#Redirect redirect_me page
+sed -i '26i\rewrite ^/redirect_me https://www.netnaija.com permanent;' /etc/nginx/site-available/default
+
+#Restart nginx 
+service nginx restart
