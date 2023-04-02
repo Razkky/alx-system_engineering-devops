@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-#install nginx on remote server
-#Configure nginx to show Hello World on defautl request
+# Install nginx and start it
 apt-get -y install nginx
 service nginx start
 ufw allow 'Nginx HTTP'
-echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
+echo "Hello World!\n" | sudo tee /var/www/html/index.nginx-debian.html
 service nginx restart
