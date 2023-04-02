@@ -16,4 +16,4 @@ sudo chown -R 755 /var/www
 sed -i '26i\rewrite ^/redirect_me https://www.netnaija.com permanent;' /etc/nginx/site-available/default
 
 #Restart nginx 
-service nginx restart
+sudo service nginx restart
