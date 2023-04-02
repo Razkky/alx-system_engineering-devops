@@ -6,7 +6,7 @@ apt-get -y install nginx
 ufw allow 'Nginx HTTP'
 
 #Change default home page file
-echo "Hello World!" | sudo tee -a /var/www/html/index.htmli > /dev/null
+echo "Hello World!" | sudo tee -a /var/www/html/index.html > /dev/null
 
 #Change ownership of file from root to user
 sudo chown -R "$USER:$USER" /var/www/html
@@ -18,5 +18,5 @@ sudo sed -i '26i\rewrite ^/redirect_me https://www.netnaija.com permanent;' /etc
 echo "Ceci n'est pas une page" | sudo tee -a /var/www/html/error_404.html > /dev/null
 sudo sed -i '27i\error_page 404 /error_404.html;' /etc/nginx/sites-available/default
 
-#Restart nginx 
+#Restart nginx
 sudo service nginx restart
