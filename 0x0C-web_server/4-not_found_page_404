@@ -7,13 +7,13 @@ apt-get -y install nginx
 ufw allow 'Nginx HTTP'
 
 #Change default home page file
-echo "Hello World!" | sudo tee -a /var/www/html/index.nginx-debian.html > /dev/null
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
 
 #Redirect redirect_me page
 sed -i '/server_name _;/a rewrite ^/redirect_me https://netnaija.com permanent;' /etc/nginx/sites-available/default
 
 #Custom 404 not found page
-echo "Ceci n'est pas une page" | sudo tee -a /var/www/html/error_404.html > /dev/null
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/error_404.html > /dev/null
 sed -i '/server_name _;/a error_page 404 /error_404.html;' /etc/nginx/sites-available/default
 
 #Restart nginx
