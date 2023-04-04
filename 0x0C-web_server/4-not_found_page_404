@@ -1,22 +1,20 @@
 #!/usr/bin/env bash
 #Configure nginx server to have a custom 404 page with the content Ceci n'est pas une page
+apt-get -y update
 apt-get -y install nginx
 
 #FireWall settings: Allow Nginx to serve on HTTP
 ufw allow 'Nginx HTTP'
 
 #Change default home page file
-echo "Hello World!" | sudo tee -a /var/www/html/index.html > /dev/null
-
-#Change ownership of file from root to user
-sudo chown -R "$USER:$USER" /var/www/html
+echo "Hello World!" | sudo tee -a /var/www/html/index.nginx-debian.html > /dev/null
 
 #Redirect redirect_me page
-sudo sed -i '26i\rewrite ^/redirect_me https://www.netnaija.com permanent;' /etc/nginx/sites-available/default
+sed -i '/server_name _;/a rewrite ^/redirect_me https://netnaija.com permanent;' /etc/nginx/sites-available/default
 
 #Custom 404 not found page
 echo "Ceci n'est pas une page" | sudo tee -a /var/www/html/error_404.html > /dev/null
-sudo sed -i '27i\error_page 404 /error_404.html;' /etc/nginx/sites-available/default
+sed -i '/server_name _;/a error_page 404 /error_404.html;' /etc/nginx/sites-available/default
 
 #Restart nginx
 sudo service nginx restart
