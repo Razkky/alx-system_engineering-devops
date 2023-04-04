@@ -10,7 +10,7 @@ apt-get -y install haproxy=2.7.\*
 #configure the backend server
 sed -i '/errorfile 504/a backend razkkybackend' /etc/haproxy/haproxy.cfg
 sed -i '/backend razkkybackend/a	balance roundrobin' /etc/haproxy/haproxy.cfg
-sed -i '/balance roundrobin/a	mode http' /etc/haproxy/haproxy.cfg
+sed -i '/balance roundrobin/a mode http' /etc/haproxy/haproxy.cfg
 sed -i '/mode http/a	 server 132495-web-01 54.160.113.7:80 check' /etc/haproxy/haproxy.cfg
 sed -i '/server 132495-web-01 54.160.113.7:80 check/a	server 132495-web-02 54.157.161.120:80 check' /etc/haproxy/haproxy.cfg
 #configure the frontend server
@@ -18,3 +18,5 @@ sed -i '/server 132495-web-02 54.157.161.120:80 check/a frontend razkkyfronted' 
 sed -i '/frontend razkkyfronted/a	bind *:80' /etc/haproxy/haproxy.cfg
 sed -i '/bind *:80/a	mode http' /etc/haproxy/haproxy.cfg
 sed -i '/mode http/a	default_backend razkkybackend' /etc/haproxy/haproxy.cfg
+sed -i '/#EXTRAOPTS="-de -m 16"/a ENABLED=1' /etc/default/haproxy
+service haproxy restart
