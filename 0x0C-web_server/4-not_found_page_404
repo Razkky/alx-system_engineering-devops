@@ -17,4 +17,4 @@ echo "Ceci n'est pas une page" | sudo tee /var/www/html/error_404.html > /dev/nu
 sed -i '/server_name _;/a error_page 404 /error_404.html;' /etc/nginx/sites-available/default
 
 #Restart nginx
-sudo service nginx restart
+service nginx restart
