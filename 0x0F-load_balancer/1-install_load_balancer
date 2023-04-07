@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#Configure a HAproxy to handle traffic to two servers
+
+#install HAproxy
+apt-get -y install --no-install-recommends software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-2.7
+apt-get -y update
+apt-get -y install haproxy=2.7.\*
+
+#configure the frontend server
+sed -i '/errorfile 504/a frontend myfrontend' /etc/haproxy/haproxy.cfg
+sed -i '/frontend myfrontend/a	bind *:80' /etc/haproxy/haproxy.cfg
+sed -i '/bind *:80/a mode http' /etc/haproxy/haproxy.cfg
+sed -i '/mode http/a  default_backend mybackend' /etc/haproxy/haproxy.cfg
+#configure the backend serverr
+sed -i '/default_backend mybackend/a backend mybackend' /etc/haproxy/haproxy.cfg
+sed -i '/backend mybackend/a mode http' /etc/haproxy/haproxy.cfg
+sed -i '/mode http/a balance roundrobin' /etc/haproxy/haproxy.cfg
+sed -i '/balance roundrobin/a	server 132495-web-01 54.160.113.7:80 check' /etc/haproxy/haproxy.cfg
+sed -i '/server 132495-web-01 54.160.113.7:80 check/a server 132495-web-02 54.157.161.120:80 check' /etc/haproxy/haproxy.cfg
+sed -i '/#EXTRAOPTS="-de -m 16"/a ENABLED=1' /etc/default/haproxy
+service haproxy restart

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#configure a new ubuntu server
+apt-get -y update
+apt-get -y install nginx
+
+#FireWall settings: Allow Nginx to serve on HTTP
+ufw allow 'Nginx HTTP'
+
+#Change default home page file
+echo "Hello World!" | sudo tee -a /var/www/html/index.nginx-debian.html > /dev/null
+
+#Redirect redirect_me page
+sed -i '/server_name _;/a rewrite ^/redirect_me https://netnaija.com permanent;' /etc/nginx/sites-available/default
+
+
+#Restart nginx
+service nginx restart
