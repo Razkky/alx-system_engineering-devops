@@ -2,8 +2,8 @@
 """Use the Rest api to get employee todo list
     and export all completed todo to csv file
 """
-import json
 import csv
+import json
 import os
 import requests
 import sys
@@ -15,7 +15,7 @@ if __name__ == "__main__":
     user = requests.get(url + "users/{}".format(id)).json()
     todos = requests.get(url + "todos", params={"userId": id}).json()
     file = id + ".json"
-    with open(file, 'w', newline='') as file:
+    with open(file, 'w') as file:
         json.dump({id: [{"task": todo.get('title'),
                         "completed": todo.get("completed"),
                          "username": user.get('name')}
