@@ -2,10 +2,10 @@
 """Use the Rest api to get employee todo list
     and export all completed todo to csv file
 """
-import sys
 import csv
-import requests
 import os
+import requests
+import sys
 
 
 if __name__ == "__main__":
