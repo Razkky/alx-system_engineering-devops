@@ -12,7 +12,7 @@ if __name__ == "__main__":
     url = 'https://jsonplaceholder.typicode.com/'
     users = requests.get(url + "users").json()
     todos = requests.get(url + "todos").json()
-    file = "todo_all_employees.json"
+    file = "odo_all_employees.json"
     with open(file, 'w') as file:
         for user in users:
             todos = requests.get(
