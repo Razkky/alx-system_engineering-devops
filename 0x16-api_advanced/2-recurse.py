@@ -13,7 +13,7 @@ def recurse(subreddit, hot_list=[], after="None"):
         headers={"User-Agent": "My-User-Agent"},
         allow_redirects=False
          )
-    if posts.status_code >= 300:
+    if posts.status_code >= 400:
         return None
     children = posts.json().get('data').get('children')
     hot_list.append([child.get('data').get('title')
@@ -21,5 +21,4 @@ def recurse(subreddit, hot_list=[], after="None"):
     after = posts.json().get('data').get('after')
     if not after:
         return hot_list
-    recurse(subreddit, hot_list, after)
-    return hot_list
+    return recurse(subreddit, hot_list, after)
