@@ -15,10 +15,11 @@ def recurse(subreddit, hot_list=[], after="None"):
          )
     if posts.status_code >= 400:
         return None
-    children = posts.json().get('data').get('children')
-    hot_list.append([child.get('data').get('title')
-                    for child in children])
-    after = posts.json().get('data').get('after')
-    if not after:
-        return hot_list
-    return recurse(subreddit, hot_list, after)
+    else:
+        children = posts.json().get('data').get('children')
+        hot_list.append([child.get('data').get('title')
+                        for child in children])
+        after = posts.json().get('data').get('after')
+        if not after:
+            return hot_list
+        return recurse(subreddit, hot_list, after)
