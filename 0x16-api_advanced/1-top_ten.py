@@ -13,6 +13,7 @@ def top_ten(subreddit):
     )
     if posts.status_code >= 300:
         print("None")
-    children = posts.json().get('data').get('children')
-    [print(child.get('data').get('title'))
-        for child in children]
+    else:
+        children = posts.json().get('data').get('children')
+        [print(child.get('data').get('title'))
+            for child in children]
