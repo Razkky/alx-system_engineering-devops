@@ -1,0 +1,51 @@
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        server_name web-01.razkky.tech;
+        index index.html;
+        add_header X-Served-By $hostname;
+
+        location /airbnb-onepage {
+                proxy_pass http://localhost:5000;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+        location /hbnb_static/ {
+                alias /data/web_static/current/;
+                try_files $uri $uri/ =404;
+        }
+
+        location /airbnb-dynamic/number_odd_or_even/ {
+                proxy_pass http://localhost:5001/number_odd_or_even/;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+
+        location /api/{
+                proxy_pass http://localhost:5002;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        
+        }
+
+          location / {
+                proxy_pass http://localhost:5003/2-hbnb;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /static/ {
+                proxy_pass http://localhost:5003;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+        rewrite ^/redirect_me https://netnaija.com;
+        error_page 404 /error_404.html;
+}
